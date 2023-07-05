@@ -1,1 +1,1 @@
-"# investment-calc" 
+# investment-calc
