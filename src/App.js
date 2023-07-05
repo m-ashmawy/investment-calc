@@ -4,24 +4,22 @@ import Header from "./components/Header";
 import Table from "./components/Table";
 
 function App() {
-  const [genratedData, setGeneratedData] = useState([]);
+  const [generatedData, setGeneratedData] = useState([]);
+
+  const [initialInvestment, setInitialInvestment] = useState(0);
   const calculateHandler = (userInput) => {
-    // Should be triggered when form is submitted
-    // You might not directly want to bind it to the submit event on the form though...
+    setInitialInvestment(+userInput["current-savings"]);
+    const yearlyData = [];
 
-    const yearlyData = []; // per-year results
-
-    let currentSavings = +userInput["current-savings"]; // feel free to change the shape of this input object!
-    const yearlyContribution = +userInput["yearly-contribution"]; // as mentioned: feel free to change the shape...
+    let currentSavings = +userInput["current-savings"];
+    const yearlyContribution = +userInput["yearly-contribution"];
     const expectedReturn = +userInput["expected-return"] / 100;
     const duration = +userInput["duration"];
 
-    // The below code calculates yearly results (total savings, interest etc)
     for (let i = 0; i < duration; i++) {
       const yearlyInterest = currentSavings * expectedReturn;
       currentSavings += yearlyInterest + yearlyContribution;
       yearlyData.push({
-        // feel free to change the shape of the data pushed to the array!
         year: i + 1,
         yearlyInterest: yearlyInterest,
         savingsEndOfYear: currentSavings,
@@ -29,7 +27,6 @@ function App() {
       });
     }
 
-    // do something with yearlyData ...
     setGeneratedData(yearlyData);
   };
 
@@ -37,9 +34,16 @@ function App() {
     <div>
       <Header />
       <FormComp onSubmit={calculateHandler} />
-      {/* Todo: Show below table conditionally (only once result data is available) */}
-      {/* Show fallback text if no data is available */}
-      <Table genratedData={genratedData} />
+      {generatedData.length ? (
+        <Table
+          generatedData={generatedData}
+          initialInvestment={initialInvestment}
+        />
+      ) : (
+        <p style={{ textAlign: "center", fontWeight: "bold" }}>
+          There is no Data Yet!!!
+        </p>
+      )}
     </div>
   );
 }
