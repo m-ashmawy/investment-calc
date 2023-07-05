@@ -13,7 +13,7 @@ function FormComp({ onSubmit }) {
   const inputChangeHandler = (event) => {
     setUserInput((prevState) => {
       let newObj = { ...prevState };
-      newObj[event.target.id] = event.target.value;
+      newObj[event.target.id] = +event.target.value;
       return newObj;
     });
   };
