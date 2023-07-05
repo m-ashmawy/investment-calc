@@ -1,7 +1,7 @@
 import React from "react";
 import TableRow from "./TableRow";
 
-function Table() {
+function Table({ genratedData }) {
   return (
     <table className="result">
       <thead>
@@ -14,7 +14,9 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        <TableRow />
+        {genratedData.map((row, index) => (
+          <TableRow key={index} rowData={row} />
+        ))}
       </tbody>
     </table>
   );

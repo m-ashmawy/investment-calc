@@ -1,11 +1,11 @@
 import React from "react";
 
-function TableRow() {
+function TableRow({ rowData }) {
   return (
     <tr>
-      <td>YEAR NUMBER</td>
-      <td>TOTAL SAVINGS END OF YEAR</td>
-      <td>INTEREST GAINED IN YEAR</td>
+      <td>{rowData.year}</td>
+      <td>{rowData.savingsEndOfYear}</td>
+      <td>{rowData.yearlyInterest}</td>
       <td>TOTAL INTEREST GAINED</td>
       <td>TOTAL INVESTED CAPITAL</td>
     </tr>
